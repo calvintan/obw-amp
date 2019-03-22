@@ -1,0 +1,384 @@
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>News Article</title>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+    All additionally used AMP components must be imported in the header. Import `amp-social-share` for adding share buttons
+  -->
+  <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+  <!-- Import `amp-list` to get a fresh a list of related articles -->
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <!-- Import `amp-mustache` as a format template for `amp-list` -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <!-- Import `amp-analytics` for tracking usage -->
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+
+  <!-- AMP components for OBW -->
+  <!-- Import the amp-youtube component -->
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+  <!-- AMP Selector -->
+  <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+  <!-- Import the `amp-sidebar` component -->
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+
+  <link rel="canonical" href="https://ampbyexample.com/samples_templates/news_article/">
+
+  <!-- ## Metadata -->
+  <!-- The Top Stories carousel requires schema.org markup for one of the following types: Article, NewsArticle, BlogPosting, or VideoObject. [Learn more](https://developers.google.com/structured-data/carousels/top-stories#markup_specification).  -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": "https://ampbyexample.com/samples_templates/news_article/",
+      "headline": "Lorem Ipsum",
+      "datePublished": "2016-04-21T11:55:02Z",
+      "dateModified": "2016-04-21T11:55:02Z",
+      "description": "A sample news article build with AMP.",
+      "author": {
+        "@type": "Person",
+        "name": "Sebastian Benz"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "http://cdn.ampproject.org/logo.jpg",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://ampbyexample.com/img/landscape_lake_1280x857.jpg",
+        "height": 1280,
+        "width": 857
+      }
+    }
+  </script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<style amp-custom>
+  :root {
+    --color-primary: #E8590C;
+    --color-text-light: #fff;
+    --color-text-dark: #000;
+    --color-bg-light: #FAFAFC;
+
+    --space-1: .5rem;  /* 8px */
+    --space-2: 1rem;   /* 16px */
+    --space-4: 2rem;
+
+    --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    }
+  .figure {
+    margin: var(--space-2) 0;
+    padding: 0;
+  }
+  .figure>figcaption{
+    padding: var(--space-1) var(--space-2);
+  }
+  .amp-ad-container {
+    display: flex;
+    margin: 0 auto;
+  }
+  .carousel .slide > amp-img > img {
+    object-fit: contain;
+  }
+  .heading {
+    padding-bottom: var(--space-1);
+  }
+  .heading h1 {
+    font-size: 3rem;
+    line-height: 3.5rem;
+    margin-bottom: var(--space-2);
+  }
+  .heading > #summary {
+    font-weight: 500;
+  }
+  .heading > small {
+    color: var(--color-primary);
+  }
+  .related {
+    background-color: var(--color-bg-light);
+    margin: var(--space-2);
+    display: flex;
+    color: var(--color-text-dark);
+    padding: 0;
+    box-shadow: var(--box-shadow-1);
+    text-decoration: none;
+  }
+  .related > span {
+    font-weight: 400;
+    margin: var(--space-1);
+  }
+  .related:hover {
+    background-color: var(--color-bg-light);
+  }
+  .cookie-disclaimer {
+    padding: var(--space-1);
+    background: var(--color-bg-light);
+    text-align: center;
+    color: var(--color-text-light);
+  }
+  /* AMP Selector styling */
+  /* Styles for the flex layout based tabs */
+  amp-selector[role=tablist].tabs-with-flex {
+      display: flex;
+      flex-wrap: wrap;
+  }
+  amp-selector[role=tablist].tabs-with-flex [role=tab] {
+      flex-grow: 1;
+      /* custom styling, feel free to change */
+      text-align: center;
+      padding: var(--space-2);
+      text-transform: uppercase;
+      color: #999999;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+  }
+  amp-selector[role=tablist].tabs-with-flex [role=tab][selected] {
+      color: #3b3b3b;
+      outline: none;
+      /* custom styling, feel free to change */
+      border-bottom: 2px solid var(--color-primary);
+  }
+  amp-selector[role=tablist].tabs-with-flex [role=tabpanel] {
+      display: none;
+      width: 100%;
+      order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+      /* custom styling, feel free to change */
+      padding: var(--space-4);
+      background: #FBF9F9;
+  }
+  amp-selector[role=tablist].tabs-with-flex [role=tab][selected] + [role=tabpanel] {
+      display: block;
+  }
+
+  /* Styles for the selector based tabs */
+  amp-selector[role=tablist].tabs-with-selector {
+      display: flex;
+  }
+  amp-selector[role=tablist].tabs-with-selector [role=tab][selected] {
+      outline: none;
+      /* custom styling, feel free to change */
+      border-bottom: 2px solid var(--color-primary);
+  }
+  amp-selector[role=tablist].tabs-with-selector {
+      display: flex;
+  }
+  amp-selector[role=tablist].tabs-with-selector [role=tab] {
+    /* custom styling, feel free to change */
+    width: 100%;
+    text-align: center;
+    padding: var(--space-1);
+  }
+  amp-selector.tabpanels [role=tabpanel] {
+    display: none;
+    /* custom styling, feel free to change */
+    padding: var(--space-4);
+  }
+  amp-selector.tabpanels [role=tabpanel][selected] {
+    outline: none;
+    display: block;
+  }
+
+  /* Normalize minified */
+  html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+
+  /* OBW styles */
+  html {
+    box-sizing: border-box;
+    font-size: 62.5%; /*1.5rem = 15px*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  body {
+    font-size: 1.5em; 
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    color: #3b3b3b;
+  }
+</style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <amp-sidebar id="sidebar-left" class="sample-sidebar" layout="nodisplay" side="left">
+    <h3>Sidebar</h3>
+    <button on="tap:sidebar-left.close">Close sidebar</button>
+    <nav toolbar="(min-width: 784px)" toolbar-target="target-element-left">
+      <ul class="menu">
+        <li><a href="#">Stories</a></li>
+        <li><a href="#">All Stories</a></li>
+        <li><a href="#">Stories by Country</a></li>
+        <li><a href="#">Stories by Cause</a></li>
+        <li><a href="#">Series</a></li>
+        <li><a href="#">Community Blog</a></li>
+        <li><a href="#">Good Story of the Year</a></li>
+      </ul>
+    </nav>
+  </amp-sidebar>
+
+  <nav class="main-navigation">
+    <button on="tap:sidebar-left.toggle">Toggle sidebar</button>
+    <!-- Unhide this to have the sidebar menu items displayed here too -->
+    <!-- <div id="target-element-left"></div> -->
+  </nav>
+
+  <amp-selector class="tabs-with-flex"
+    role="tablist">
+    <div id="tab1"
+      role="tab"
+      aria-controls="tabpanel1"
+      option
+      selected>Story</div>
+    <div id="tabpanel1"
+      role="tabpanel"
+      aria-labelledby="tab1">
+
+      <main class="container">
+        <div class="entry-header">
+          <div class="entry-head">
+            <a href="#" class="entry-tag">Children and Youth</a>
+            <span class="entry-public-date">28 Feb 2019</span>
+          </div>
+          <h1 class="entry-title">A fresh shot at life, after jail</h1>
+          <p class="entry-short-desc">How a cup of coffee can give youth offenders a chance to get their lives on the right track.</p>
+        </div>
+
+        <amp-youtube width="480" 
+                     height="270"
+                     layout="responsive"
+                     data-videoid="lBTCB7yLs8Y">
+        </amp-youtube>
+        
+        <div class="entry-content">
+          <p>The smell of coffee wafts through the air as Humam serves his first customers of the day. For them, this is just their morning cup of coffee, but for Humam this cup of coffee is a chance for a new beginning.</p>
+
+          <p>Humam’s voice is soft but his words are thoughtful. He occasionally giggles as he tells his story and it’s hard to imagine that this 18-year-old has served a two-year jail sentence.</p> 
+
+          <p>It was in a youth prison in Kutoarajo, Central Java where Humam met Dian Sasmita, who planted the seeds of his fresh start.</p>
+
+          <!-- <figure class="figure">
+            <amp-img src="/img/landscape_village_1280x853.jpg" width="1280" height="768" layout="responsive"></amp-img>
+            <figcaption>Here is a responsive image.</figcaption>
+          </figure> -->
+
+          <div class="cta-block">
+            <div class="you-can-help">
+              <div class="view-header">
+                <h3>Take Action</h3>
+              </div>
+              <div class="view-content">
+                <div>
+                  <a href="#">
+                    <b>Donate</b>
+                    <span>Help fund Sahabat Kapas’ programmes to assist youth offenders get their lives back on track</span>
+                  </a>
+                </div>
+                <div>
+                  <a href="#">
+                    <b>Support</b>
+                    <span>Find out how Sahabat Kapas advocates for youth welfare and rehabilitation in prisons</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-organisation">
+            <h3 class="default-title">About Sahabat Kapas</h3>
+            <p>Sahabat Kapas works with juveniles in prison, offering legal advice and counselling sessions. Recognising their struggle to rehabilitate into society after prison, Sahabat Kapas has started a new programme to teach barista skills to released juveniles.</p>
+          </div>
+          <div class="contributors">
+            <h3 class="default-title">Contributors</h3>
+            <table>
+              <tr>
+                <td>Director & Editor</td>
+                <td><a href="#">Ahmad Yuniardi</a></td>
+              </tr>
+              <tr>
+                <td>Producer & Writer</td>
+                <td><a href="#">Rani Jeyaraj</a></td>
+              </tr>
+              <tr>
+                <td>Producer</td>
+                <td><a href="#">Ari Rusyadi &  Shirley Tamara</a></td>
+              </tr>
+            </table>
+          </div>
+          <div class="related-tags-topics">
+            <h3 class="default-title">Related topics</h3>
+            Tags goes here...
+          </div>
+          <div class="action-area">
+            <h3 class="default-title">Participate</h3>
+            Action goes here...
+          </div>
+        </div><!-- /end of entry-content -->
+        <!-- ## Embedding related content -->
+        <!-- -->
+        <h2>Articles you may like</h2>
+        <p>These articles might be interesting for you as well:</p>
+        <!-- It's a good idea to recommend related content to your readers. With `amp-list` it is possible to dynamically include personalized content into your AMPs. It's a good idea to link to the AMP version of related content in order to keep the user in the fast AMP world. Learn more about `amp-list` [here](/components/amp-list/) -->
+        <amp-list width="300" height="75" layout="responsive" src="/json/related_articles.json">
+          <template type="amp-mustache">
+            <a class="related" href="{{url}}">
+              <amp-img width="101" height="75" src="{{thumbnail}}"></amp-img><span>{{title}}</span>
+            </a>
+          </template>
+        </amp-list>
+      </main>
+
+    </div><!-- /end of tab1 -->
+    <div id="tab2"
+      role="tab"
+      aria-controls="tabpanel2"
+      option>Take Action</div>
+    <div id="tabpanel2"
+      role="tabpanel"
+      aria-labelledby="tab2">Tab two content... </div>
+  </amp-selector>
+
+  <!-- ## Social sharing  -->
+  <div class="share-box">
+    <p class="heading">
+      <amp-social-share type="twitter" width="45" height="33"></amp-social-share>
+      <amp-social-share type="facebook" width="45" height="33" data-attribution="254325784911610"></amp-social-share>
+      <amp-social-share type="email" width="45" height="33"></amp-social-share>
+      <amp-social-share type="pinterest" width="45" height="33"></amp-social-share>
+    </p>
+  </div>
+  
+  <!-- ## User analytics -->
+  <!-- Analytics must be configured in the body. Here we use Google Analytics to track pageviews.  -->
+  <amp-analytics type="googleanalytics">
+    <script type="application/json">
+      {
+        "vars": {
+          "account": "UA-73836974-1"
+        },
+        "triggers": {
+          "default pageview": {
+            "on": "visible",
+            "request": "pageview",
+            "vars": {
+              "title": "{{title}}"
+            }
+          }
+        }
+      }
+    </script>
+  </amp-analytics>
+
+</body>
+</html>

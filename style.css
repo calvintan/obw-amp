@@ -1,0 +1,163 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  /*padding: 0 20px;*/
+}
+
+.tabs-with-flex {
+  margin-top: 60px;
+}
+
+/* navigation */
+.main-navigation {
+  position: fixed;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  z-index: 1;
+}
+
+/* Social Menu */
+.share-box {
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  background: #fff;
+  z-index: 1;
+  text-align: center;
+}
+
+/* header-related */
+.entry-head a {
+  text-decoration: none;
+}
+
+.entry-head a:hover {
+  text-decoration: underline;
+}
+
+.entry-head .entry-tag {
+  color: #E8590C;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.entry-head .entry-public-date {
+  color: #999999;
+  font-size: 14px;
+  margin: 0;
+}
+
+.entry-head .entry-public-date::before {
+  content: '/';
+  display: inline-block;
+  margin: 0 4px;
+}
+
+.entry-header {
+  margin-bottom: 20px;
+}
+
+.entry-header .entry-title {
+  margin: 8px 0 4px;
+  color: #191919;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.entry-header .entry-short-desc {
+  color: #6B6B6B;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* entry content */
+.entry-content {
+  font-size: 18px;
+}
+
+.entry-content h3 {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+h3.default-title {
+  margin-bottom: 10px;
+}
+
+/* CTA block */
+.you-can-help {
+  background: #fff;
+  margin-bottom: 30px;
+}
+
+.you-can-help a {
+  display: block;
+  text-decoration: none;
+  padding: 20px;
+  color: #3b3b3b;
+}
+
+.you-can-help a:hover {
+  background: #fdead8;
+}
+
+.you-can-help b {
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.you-can-help span {
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #6b6b6b;
+}
+
+.you-can-help h3 {
+  color: #fff;
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: .25px;
+  text-transform: none;
+}
+
+.you-can-help .view-header {
+  background: #E8590C;
+  padding: 15px 20px;
+  border-radius: 4px 4px 0 0;
+}
+
+.you-can-help .view-content div + div {
+  border-top: 1px solid #ddd;
+}
+
+/* About Org */
+.about-organisation {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+.about-organisation p {
+  margin-top: 0;
+}
+
+/* contributors */
+.contributors {
+  font-size: 16px;
+}
+.contributors a {
+  text-decoration: none;
+  color: #E8590C;
+}
+.contributors a:hover {
+  text-decoration: underline;
+}
